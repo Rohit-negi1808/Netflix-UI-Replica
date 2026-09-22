@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Netflix India - Watch TV Shows Online, Watch Movies Online</title>
+    <link
+      rel="icon"
+      href="http://pngimg.com/uploads/netflix/small/netflix_PNG15.png"
+    />
+  <style>
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  font-family: 'Roboto', sans-serif;
+}
+
+.background {
+  background: url('https://assets.nflxext.com/ffe/siteui/vlv3/9c5457b8-9ab0-4a04-9fc1-e608d5670f1a/710d74e0-7158-408e-8d9b-23c219dee5df/IN-en-20210719-popsignuptwoweeks-perspective_alpha_website_small.jpg') no-repeat center center/cover;
+  height: 100vh;
+  position: relative;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(3px);
+}
+
+.signup-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 380px;
+  padding: 40px;
+  background-color: rgba(0, 0, 0, 0.75);
+  transform: translate(-50%, -50%);
+  border-radius: 8px;
+  color: #fff;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+  animation: fadeIn 1s ease-out;
+}
+
+.signup-box h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: 700;
+  color: #dc030f;
+}
+
+.signup-box input[type="text"],
+.signup-box input[type="email"],
+.signup-box input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  background-color: #333;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 14px;
+}
+
+.signup-box h3 {
+  margin: 20px 0 10px;
+  font-weight: 500;
+}
+
+.plan-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.plan-options label {
+  background-color: #222;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.3s;
+}
+
+.plan-options input[type="radio"] {
+  margin-right: 10px;
+}
+
+.plan-options label:hover {
+  background-color: #333;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  background-color: #dc030f;
+  border: none;
+  font-size: 16px;
+  color: white;
+  font-weight: bold;
+  border-radius: 4px;
+  margin-top: 20px;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background-color: #f40612;
+}
+
+.signin-link {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.signin-link a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translate(-50%, -60%); }
+  to { opacity: 1; transform: translate(-50%, -50%); }
+}
+</style>
+</head>
+<body>
+  <div class="background">
+    <div class="overlay"></div>
+    <div class="signup-box">
+      <h1>Sign up</h1>
+      <form>
+        <input type="text" placeholder="Full Name" required />
+        <input type="email" placeholder="Email Address" required />
+        <input type="password" placeholder="Password" required />
+
+        <h3>Choose Your Plan</h3>
+        <div class="plan-options">
+          <label>
+            <input type="radio" name="plan" value="basic" required />
+            <span>Basic</span>
+            <span class="price">$8.99/mo</span>
+          </label>
+          <label>
+            <input type="radio" name="plan" value="standard" />
+            <span>Standard</span>
+            <span class="price">$13.99/mo</span>
+          </label>
+          <label>
+            <input type="radio" name="plan" value="premium" />
+            <span>Premium</span>
+            <span class="price">$17.99/mo</span>
+          </label>
+        </div>
+
+        <button type="submit">Get Started</button>
+      </form>
+      <p class="signin-link">Already a member? <a href="signin.html">Sign In</a></p>
+    </div>
+  </div>
+  <script>
+    document.querySelector("form").addEventListener("submit", function (e) {
+      e.preventDefault();
+  
+      const name = document.querySelector('input[type="text"]').value.trim();
+      const email = document.querySelector('input[type="email"]').value.trim();
+      const password = document.querySelector('input[type="password"]').value;
+      const plan = document.querySelector('input[name="plan"]:checked')?.value;
+  
+      if (!name || !email || !password || !plan) {
+        alert("Please fill out all fields and select a plan.");
+        return;
+      }
+  
+      const user = {
+        name,
+        email,
+        password,
+        plan,
+      };
+  
+      // Save to localStorage
+      localStorage.setItem("netflixUser", JSON.stringify(user));
+  
+      // Redirect to homepage
+      alert("Sign up successful! Redirecting to Netflix...");
+      window.location.href = "index.html";
+    });
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Watch</title>
+  <style>
+    body { 
+      margin: 0; 
+      background: black; 
+      color: white; 
+      font-family: Arial, sans-serif; 
+      display: flex;
+      justify-content: center; /* Center horizontally */
+      align-items: center;     /* Center vertically */
+      height: 100vh;           /* Full viewport height */
+      overflow: hidden;        /* Prevent scrollbars */
+    }
+    .video-container { 
+      text-align: center;      /* Center text */
+      padding: 2rem; 
+    }
+    video { 
+      width: 100%; 
+      max-width: 900px; 
+      border: 2px solid #fff; 
+      border-radius: 10px; 
+    }
+    h1 { 
+      margin-top: 1rem; 
+    }
+  </style>
+</head>
+<body>
+  <div class="video-container">
+    <h1 id="movie-title">Loading...</h1>
+    <video id="movie-video" controls autoplay>
+      <source id="video-source" src="" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <script>
+    const movieData = {
+        interstellar: {
+          title: "Interstellar",
+          videoUrl: "videos/interstellar.mp4"
+        },
+        johnwick: {
+          title: "John Wick",
+          videoUrl: "videos/johnwick.mp4"
+        },
+        jurassicworld: {
+          title: "Jurassic World",
+          videoUrl: "videos/jurassicworld.mp4"
+        },
+        kotafactory: {
+          title: "Kota Factory",
+          videoUrl: "videos/kotafactory.mp4"
+        },
+        moneyheist: {
+          title: "Money Heist",
+          videoUrl: "videos/moneyheist.mp4"
+        },
+        strangerthings: {
+          title: "Stranger Things",
+          videoUrl: "videos/strangerthings.mp4"
+        },
+        topgun: {
+          title: "Top Gun",
+          videoUrl: "videos/topgun.mp4"
+        }
+      };
+
+    const params = new URLSearchParams(window.location.search);
+    const movieId = params.get("movie");
+
+    const movie = movieData[movieId];
+    if (movie) {
+      document.getElementById("movie-title").textContent = movie.title;
+      document.getElementById("video-source").src = movie.videoUrl;
+      document.getElementById("movie-video").load();
+    } else {
+      document.getElementById("movie-title").textContent = "Movie not found!";
+    }
+
+    // Function to toggle fullscreen
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        // Enter fullscreen
+        if (document.documentElement.requestFullscreen) {
+          document.documentElement.requestFullscreen();
+        } else if (document.documentElement.mozRequestFullScreen) { // Firefox
+          document.documentElement.mozRequestFullScreen();
+        } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari and Opera
+          document.documentElement.webkitRequestFullscreen();
+        } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
+          document.documentElement.msRequestFullscreen();
+        }
+      } else {
+        // Exit fullscreen
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.mozCancelFullScreen) { // Firefox
+          document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) { // Chrome, Safari and Opera
+          document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) { // IE/Edge
+          document.msExitFullscreen();
+        }
+      }
+    }
+
+    // Add event listener for the Enter key press
+    document.addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        toggleFullscreen();
+      }
+    });
+  </script>
+</body>
+</html>
